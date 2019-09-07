@@ -9,11 +9,13 @@ namespace TextWebServices.Models
 		[DynamoDBHashKey]
 		public string Id { get; set; }
 
+		[DynamoDBProperty]
 		public string Title { get; set; }
 
 		[DynamoDBProperty("Authors")]
 		public List<string> Authors { get; set; }
 
+		[DynamoDBProperty]
 		public string Body { get; set; }
 	}
 }

@@ -1,6 +1,6 @@
 ﻿namespace TextWebServices.Entities
 {
-	public class TextStatistics
+	public class TextStatisticsEntity
 	{
 		public int Id { get; set; }
 

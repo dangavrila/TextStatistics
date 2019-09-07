@@ -1,14 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Amazon.DynamoDBv2;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
+using TextWebServices.Repository;
 
 namespace TextWebServices
 {
@@ -32,12 +29,23 @@ namespace TextWebServices
             services.AddAWSService<Amazon.S3.IAmazonS3>();
 
 			// Add DynamoDB client
-			services.AddDefaultAWSOptions(Configuration.GetAWSOptions());
+			var awsOptions = Configuration.GetAWSOptions();
+			services.AddDefaultAWSOptions(awsOptions);
 			services.AddAWSService<IAmazonDynamoDB>();
+
+			// Auto Mapper Configurations
+			var mappingConfig = new MapperConfiguration(mc =>
+			{
+				mc.AddProfile(new MappingProfile());
+			});
+			IMapper mapper = mappingConfig.CreateMapper();
+			services.AddSingleton(mapper);
+
+			services.AddSingleton<ITextsCollectionsRepository, TextsCollectionDynamoDbRepository>();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline
+		public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -48,7 +56,7 @@ namespace TextWebServices
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseMvc();
         }
     }

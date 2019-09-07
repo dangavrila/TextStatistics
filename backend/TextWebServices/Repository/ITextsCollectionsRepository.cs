@@ -6,8 +6,8 @@ namespace TextWebServices.Repository
 {
 	public interface ITextsCollectionsRepository
 	{
-		Task Insert(TextItem textItem, CancellationToken cancellationToken);
+		Task InsertAsync(TextItem textItem, CancellationToken cancellationToken);
 
-		Task<TextStatistics> GetStatistics(CancellationToken cancellationToken);
+		Task<TextStatistics> GetStatisticsAsync(string textItemId, CancellationToken cancellationToken);
 	}
 }

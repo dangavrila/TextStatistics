@@ -1,20 +1,30 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
+using Amazon.DynamoDBv2;
+using Amazon.DynamoDBv2.DataModel;
 using TextWebServices.Models;
 
 namespace TextWebServices.Repository
 {
 	public class TextsCollectionDynamoDbRepository: ITextsCollectionsRepository
 	{
-		public Task Insert(TextItem textItem, CancellationToken cancellationToken)
+		private readonly IAmazonDynamoDB _dynamoClient;
+		private readonly DynamoDBContext _context;
+
+		public TextsCollectionDynamoDbRepository(IAmazonDynamoDB dynamoClient)
 		{
-			throw new NotImplementedException();
+			_dynamoClient = dynamoClient;
+			_context = new DynamoDBContext(dynamoClient);
 		}
 
-		public Task<TextStatistics> GetStatistics(CancellationToken cancellationToken)
+		public Task InsertAsync(TextItem textItem, CancellationToken cancellationToken)
 		{
-			throw new NotImplementedException();
+			return _context.SaveAsync(textItem, cancellationToken);
+		}
+
+		public Task<TextStatistics> GetStatisticsAsync(string textId, CancellationToken cancellationToken)
+		{
+			return _context.LoadAsync<TextStatistics>(textId, cancellationToken);
 		}
 	}
 }

@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TextWebServices.Models;
+using TextWebServices.Repository;
 
 namespace TextWebServices.Controllers
 {
@@ -13,10 +13,23 @@ namespace TextWebServices.Controllers
     [ApiController]
     public class TextController : ControllerBase
     {
-	    [HttpPost]
-	    public void Post([FromBody]TextItem textItem)
-	    {
+	    private readonly IMapper _mapper;
+	    private readonly ITextsCollectionsRepository _textsRepository;
 
+		public TextController(IMapper mapper, ITextsCollectionsRepository textsRepository)
+		{
+			_mapper = mapper;
+			_textsRepository = textsRepository;
+		}
+
+	    [HttpPost]
+	    [ProducesResponseType(typeof(TextItem), StatusCodes.Status201Created)]
+		[ProducesResponseType(StatusCodes.Status400BadRequest)]
+		public async Task<IActionResult> PostAsync([FromBody]TextItem textItem)
+	    {
+		    await _textsRepository.InsertAsync(textItem, CancellationToken.None);
+
+		    return CreatedAtAction("PostAsync", new {id = textItem.Id}, textItem);
 	    }
 	}
 }

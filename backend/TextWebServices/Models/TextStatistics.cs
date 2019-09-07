@@ -6,10 +6,10 @@ namespace TextWebServices.Models
 	public class TextStatistics
 	{
 		[DynamoDBHashKey]
-		public int Id { get; set; }
+		public string Id { get; set; }
 
 		[DynamoDBRangeKey]
-		public int TextId { get; set; }
+		public string TextId { get; set; }
 
 		public int Paragraphs { get; set; }
 

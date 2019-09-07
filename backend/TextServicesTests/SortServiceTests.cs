@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 using TextServices.Interfaces;
-using TextServices.TextServices;
+using TextServices.Services;
 
 namespace Tests
 {

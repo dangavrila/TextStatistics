@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using TextServices.Interfaces;
+using TextServices.Services;
 using TextWebServices.Repository;
 
 namespace TextWebServices
@@ -42,6 +44,7 @@ namespace TextWebServices
 			services.AddSingleton(mapper);
 
 			services.AddSingleton<ITextsCollectionsRepository, TextsCollectionDynamoDbRepository>();
+			services.AddTransient<ISortText, SortService>();
         }
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline

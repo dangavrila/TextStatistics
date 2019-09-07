@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using TextServices.Interfaces;
 
-namespace TextServices.TextServices
+namespace TextServices.Services
 {
 	public class SortService: ISortText
 	{

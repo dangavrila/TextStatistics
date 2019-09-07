@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using TextServices.Interfaces;
 using TextWebServices.Models;
 using TextWebServices.Repository;
 
@@ -15,11 +16,13 @@ namespace TextWebServices.Controllers
     {
 	    private readonly IMapper _mapper;
 	    private readonly ITextsCollectionsRepository _textsRepository;
+	    private readonly ISortText _sortTextService;
 
-		public TextController(IMapper mapper, ITextsCollectionsRepository textsRepository)
+		public TextController(IMapper mapper, ITextsCollectionsRepository textsRepository, ISortText sortText)
 		{
 			_mapper = mapper;
 			_textsRepository = textsRepository;
+			_sortTextService = sortText;
 		}
 
 	    [HttpPost]
@@ -40,6 +43,49 @@ namespace TextWebServices.Controllers
 			var item = await _textsRepository.GetTextItemAsync(id, CancellationToken.None);
 
 			return Ok(item);
+		}
+
+		[HttpPost]
+		[ProducesResponseType(typeof(TextItem), StatusCodes.Status200OK)]
+		public async Task<IActionResult> Sort([FromBody] SortTextInput sortTextInput)
+		{
+			TextItem responseObject = null;
+			if (ModelState.IsValid)
+			{
+				if (sortTextInput.Option == SortOptionsEnum.ASC)
+				{
+					_sortTextService.SortTextAscending(sortTextInput.TextItem.Body, out var ascSortedText);
+					responseObject = new TextItem()
+					{
+						Id = sortTextInput.TextItem.Id,
+						Title = sortTextInput.TextItem.Title,
+						Body = ascSortedText,
+						Authors = sortTextInput.TextItem.Authors
+					};
+
+					await _textsRepository.InsertAsync(responseObject, CancellationToken.None);
+
+					return Ok(responseObject);
+				}
+
+				if (sortTextInput.Option == SortOptionsEnum.DESC)
+				{
+					_sortTextService.SortTextDescending(sortTextInput.TextItem.Body, out var descSortedText);
+					responseObject = new TextItem()
+					{
+						Id = sortTextInput.TextItem.Id,
+						Title = sortTextInput.TextItem.Title,
+						Body = descSortedText,
+						Authors = sortTextInput.TextItem.Authors
+					};
+
+					await _textsRepository.InsertAsync(responseObject, CancellationToken.None);
+
+					return Ok(responseObject);
+				}
+			}
+
+			return BadRequest(ModelState);
 		}
 	}
 }

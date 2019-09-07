@@ -44,8 +44,10 @@ namespace TextServices.Services
 			var sortedLinesArray = mappingTextLines.ToImmutableSortedDictionary().Keys.ToArray();
 			for (int i = sortedLinesArray.Length - 1; i >= 0; i--)
 			{
-				paragraphs.Add(sortedLinesArray[i]);
-				sb.Append(sortedLinesArray[i]);
+				var stringLine = mappingTextLines[sortedLinesArray[i]];
+				paragraphs.Add(stringLine);
+				sb.Append(stringLine);
+				sb.Append("\r\n");
 			}
 
 			sortedBodyText = sb.ToString();

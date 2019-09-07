@@ -1,4 +1,4 @@
-﻿namespace TextWebServices.Entities
+﻿namespace TextServices.Entities
 {
 	public class TextStatisticsEntity
 	{

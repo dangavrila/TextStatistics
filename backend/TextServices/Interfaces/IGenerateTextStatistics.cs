@@ -1,6 +1,6 @@
-﻿using TextWebServices.Entities;
+﻿using TextServices.Entities;
 
-namespace TextWebServices.Interfaces
+namespace TextServices.Interfaces
 {
 	interface IGenerateTextStatistics
 	{

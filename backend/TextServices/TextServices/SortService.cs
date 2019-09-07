@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using TextWebServices.Interfaces;
+using TextServices.Interfaces;
 
-namespace TextWebServices.TextServices
+namespace TextServices.TextServices
 {
 	public class SortService: ISortText
 	{

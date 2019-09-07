@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace TextWebServices.Interfaces
+namespace TextServices.Interfaces
 {
 	public interface ISortText
 	{

@@ -31,5 +31,15 @@ namespace TextWebServices.Controllers
 
 		    return CreatedAtAction("PostAsync", new {id = textItem.Id}, textItem);
 	    }
+
+		[HttpGet("{id}")]
+		[ProducesResponseType(typeof(TextItem), StatusCodes.Status200OK)]
+		[ProducesResponseType(StatusCodes.Status404NotFound)]
+		public async Task<IActionResult> GetItemText(string id)
+		{
+			var item = await _textsRepository.GetTextItemAsync(id, CancellationToken.None);
+
+			return Ok(item);
+		}
 	}
 }

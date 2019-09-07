@@ -22,6 +22,11 @@ namespace TextWebServices.Repository
 			return _context.SaveAsync(textItem, cancellationToken);
 		}
 
+		public Task<TextItem> GetTextItemAsync(string id, CancellationToken cancellationToken)
+		{
+			return _context.LoadAsync<TextItem>(id, cancellationToken);
+		}
+
 		public Task<TextStatistics> GetStatisticsAsync(string textId, CancellationToken cancellationToken)
 		{
 			return _context.LoadAsync<TextStatistics>(textId, cancellationToken);

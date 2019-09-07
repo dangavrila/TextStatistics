@@ -8,6 +8,8 @@ namespace TextWebServices.Repository
 	{
 		Task InsertAsync(TextItem textItem, CancellationToken cancellationToken);
 
+		Task<TextItem> GetTextItemAsync(string id, CancellationToken cancellationToken);
+
 		Task<TextStatistics> GetStatisticsAsync(string textItemId, CancellationToken cancellationToken);
 	}
 }

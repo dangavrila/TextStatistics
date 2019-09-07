@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using TextWebServices.Entities;
+using TextServices.Entities;
 using TextWebServices.Models;
 
 namespace TextWebServices

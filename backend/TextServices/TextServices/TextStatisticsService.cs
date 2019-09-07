@@ -1,8 +1,8 @@
 ﻿using System;
-using TextWebServices.Entities;
-using TextWebServices.Interfaces;
+using TextServices.Entities;
+using TextServices.Interfaces;
 
-namespace TextWebServices.TextServices
+namespace TextServices.TextServices
 {
 	public class TextStatisticsService: IGenerateTextStatistics
 	{

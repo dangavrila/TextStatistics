@@ -4,8 +4,8 @@ namespace TextServices.Interfaces
 {
 	public interface ISortText
 	{
-		IEnumerable<string> SortParagraphsAsc(string textBody);
+		IEnumerable<string> SortTextAscending(string textBody, out string sortedBodyText);
 
-		IEnumerable<string> SortParagraphsDesc(string textBody);
+		IEnumerable<string> SortTextDescending(string textBody, out string sortedBodyText);
 	}
 }

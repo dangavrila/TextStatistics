@@ -8,9 +8,6 @@ namespace TextWebServices.Models
 		[DynamoDBHashKey]
 		public string Id { get; set; }
 
-		[DynamoDBRangeKey]
-		public string TextId { get; set; }
-
 		public int Paragraphs { get; set; }
 
 		public int SpecialCharacterCount { get; set; }

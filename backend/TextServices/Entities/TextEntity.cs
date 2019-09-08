@@ -13,7 +13,7 @@ namespace TextServices.Entities
 
 		public string Title { get; set; }
 
-		public List<string> Authors { get; set; }
+		public List<string> Authors { get; }
 
 		public string Body { get; set; }
 	}

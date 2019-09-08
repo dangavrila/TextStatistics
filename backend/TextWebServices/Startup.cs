@@ -25,7 +25,11 @@ namespace TextWebServices
         // This method gets called by the runtime. Use this method to add services to the container
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc(options =>
+            {
+				options.InputFormatters.Insert(0, new TextPlainInputFormatter());
+            })
+            .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             // Add S3 to the ASP.NET Core dependency injection framework.
             services.AddAWSService<Amazon.S3.IAmazonS3>();
@@ -45,6 +49,7 @@ namespace TextWebServices
 
 			services.AddSingleton<ITextsCollectionsRepository, TextsCollectionDynamoDbRepository>();
 			services.AddTransient<ISortText, SortService>();
+			services.AddTransient<IGenerateTextStatistics, TextStatisticsService>();
         }
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline

@@ -2,8 +2,8 @@
 
 namespace TextServices.Interfaces
 {
-	interface IGenerateTextStatistics
+	public interface IGenerateTextStatistics
 	{
-		TextStatisticsEntity GenerateStatistics(TextEntity textItem);
+		TextStatisticsEntity GenerateStatistics(string textItem);
 	}
 }

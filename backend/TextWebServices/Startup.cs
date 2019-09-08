@@ -17,12 +17,6 @@ namespace TextWebServices
 	public class Startup
 	{
 		public const string AppS3BucketKey = "AppS3Bucket";
-		private const string CognitoGroupName = "GenerateStatistics";
-		private const string OpenIDConnectAuthorityFormat = "https://cognito-idp.{0}.amazonaws.com/{1}";
-		private const string CognitoPoolId = "us-east-2_k83bo5YdJ";
-		private const string AWSRegion = "us-east-2";
-		private const string CognitoApplicationClientId = "5ffr8ce8bo382bbpmjf9mmondp";
-
 
 		public Startup(IConfiguration configuration)
 		{
@@ -47,10 +41,11 @@ namespace TextWebServices
 			services.AddAuthorization(
 				options =>
 				{
+					var cognitoGroupName = Configuration["Cognito:GroupName"];
 					options.DefaultPolicy = new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme)
-						.AddRequirements(new CognitoGroupAuthorizationRequirement(CognitoGroupName))
+						.AddRequirements(new CognitoGroupAuthorizationRequirement(cognitoGroupName))
 						.Build();
-					options.AddPolicy($"In{CognitoGroupName}", policy => policy.Requirements.Add(new CognitoGroupAuthorizationRequirement(CognitoGroupName)));
+					options.AddPolicy($"In{cognitoGroupName}", policy => policy.Requirements.Add(new CognitoGroupAuthorizationRequirement(cognitoGroupName)));
 				}
 			);
 
@@ -64,8 +59,11 @@ namespace TextWebServices
 				}
 			).AddJwtBearer(options =>
 			{
-				options.Audience = CognitoApplicationClientId;
-				options.Authority = string.Format(OpenIDConnectAuthorityFormat, AWSRegion, CognitoPoolId);
+				options.Audience = Configuration["Cognito:AppClientId"];
+				options.Authority = string.Format(
+					Configuration["Cognito:OpenIDConnectAuthorityFormat"]
+					, Configuration["Cognito:Region"]
+					, Configuration["Cognito:PoolId"]);
 				options.RequireHttpsMetadata = false; // to be set to true in production
 			});
 

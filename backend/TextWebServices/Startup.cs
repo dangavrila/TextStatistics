@@ -97,7 +97,11 @@ namespace TextWebServices
 				app.UseHsts();
 			}
 
-			//app.UseHttpsRedirection();
+			if (!env.IsDevelopment())
+				app.UseHttpsRedirection();
+			app.UseDefaultFiles();
+			app.UseStaticFiles();
+			app.UseAuthentication();
 			app.UseMvc();
 		}
 	}

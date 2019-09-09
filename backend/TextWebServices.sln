@@ -11,7 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "backend", "backend", "{985F
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TextServices", "TextServices\TextServices.csproj", "{47290E86-21B6-427A-9804-1FE9C3B757FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextServicesTests", "TextServicesTests\TextServicesTests.csproj", "{DE94086D-0F08-4347-A701-2955DA36EC72}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TextServicesTests", "TextServicesTests\TextServicesTests.csproj", "{DE94086D-0F08-4347-A701-2955DA36EC72}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

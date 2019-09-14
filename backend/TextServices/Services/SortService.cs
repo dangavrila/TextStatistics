@@ -14,9 +14,7 @@ namespace TextServices.Services
 			sortedBodyText = String.Empty;
 			var paragraphs = new List<string>();
 
-			string[] textLines = textBody.Split(new char[]{'\r', '\n'}, StringSplitOptions.RemoveEmptyEntries);
-
-			var mappingTextLines = MapStringLines(textLines);
+			var mappingTextLines = MapStringLines(textBody);
 
 			StringBuilder sb = new StringBuilder(sortedBodyText);
 			foreach (var keyValuePair in mappingTextLines.ToImmutableSortedDictionary())
@@ -38,9 +36,7 @@ namespace TextServices.Services
 			sortedBodyText = String.Empty;
 			var paragraphs = new List<string>();
 
-			string[] textLines = textBody.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
-
-			var mappingTextLines = MapStringLines(textLines);
+			var mappingTextLines = MapStringLines(textBody);
 
 			StringBuilder sb = new StringBuilder(sortedBodyText);
 			var sortedLinesArray = mappingTextLines.ToImmutableSortedDictionary().Keys.ToArray();
@@ -52,13 +48,23 @@ namespace TextServices.Services
 				sb.Append("\r\n");
 			}
 
-			sortedBodyText = sb.ToString();
+			var builtString = sb.ToString();
+
+			sortedBodyText = builtString.Substring(0, builtString.Length - 2);
 
 			return paragraphs;
 		}
 
-		private Dictionary<string, string> MapStringLines(string[] lines)
+		/// <summary>
+		/// Splits a body of text into lines by carriage return special characters
+		/// and then maps each line to it's initial letter, or more, if there happens to exist lines with same initial letter.
+		/// </summary>
+		/// <param name="textBody">Input text</param>
+		/// <returns>A dictionary of initial letter(s) and lines.</returns>
+		private Dictionary<string, string> MapStringLines(string textBody)
 		{
+			string[] lines = textBody.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+
 			Dictionary<string, string> mappingTextLines = new Dictionary<string, string>();
 			for (var i = 0; i < lines.Length; i++)
 			{

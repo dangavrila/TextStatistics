@@ -9,50 +9,33 @@ namespace TextServices.Services
 {
 	public class SortService: ISortText
 	{
+		private delegate string PerformSorting(Dictionary<string, string> mappingDictionary,
+			List<string> linesCollection);
+
 		public IEnumerable<string> SortTextAscending(string textBody, out string sortedBodyText)
 		{
 			sortedBodyText = String.Empty;
-			var paragraphs = new List<string>();
+			var linesList = new List<string>();
 
 			var mappingTextLines = MapStringLines(textBody);
 
-			StringBuilder sb = new StringBuilder(sortedBodyText);
-			foreach (var keyValuePair in mappingTextLines.ToImmutableSortedDictionary())
-			{
-				paragraphs.Add(keyValuePair.Value);
-				sb.Append(keyValuePair.Value);
-				sb.Append("\r\n");
-			}
+			PerformSorting sortingHandler = SortLinesAscendent;
+			sortedBodyText = sortingHandler.Invoke(mappingTextLines, linesList);
 
-			var builtString = sb.ToString();
-
-			sortedBodyText = builtString.Substring(0, builtString.Length - 2);
-
-			return paragraphs;
+			return linesList;
 		}
 
 		public IEnumerable<string> SortTextDescending(string textBody, out string sortedBodyText)
 		{
 			sortedBodyText = String.Empty;
-			var paragraphs = new List<string>();
+			var linesList = new List<string>();
 
 			var mappingTextLines = MapStringLines(textBody);
 
-			StringBuilder sb = new StringBuilder(sortedBodyText);
-			var sortedLinesArray = mappingTextLines.ToImmutableSortedDictionary().Keys.ToArray();
-			for (int i = sortedLinesArray.Length - 1; i >= 0; i--)
-			{
-				var stringLine = mappingTextLines[sortedLinesArray[i]];
-				paragraphs.Add(stringLine);
-				sb.Append(stringLine);
-				sb.Append("\r\n");
-			}
+			PerformSorting sortingDelegate = SortLinesDescendent;
+			sortedBodyText = sortingDelegate.Invoke(mappingTextLines, linesList);
 
-			var builtString = sb.ToString();
-
-			sortedBodyText = builtString.Substring(0, builtString.Length - 2);
-
-			return paragraphs;
+			return linesList;
 		}
 
 		/// <summary>
@@ -78,6 +61,38 @@ namespace TextServices.Services
 			}
 
 			return mappingTextLines;
+		}
+
+		private string SortLinesAscendent(Dictionary<string, string> mappingDictionary, List<string> linesCollection)
+		{
+			StringBuilder sb = new StringBuilder();
+			foreach (var keyValuePair in mappingDictionary.ToImmutableSortedDictionary())
+			{
+				linesCollection.Add(keyValuePair.Value);
+				sb.Append(keyValuePair.Value);
+				sb.Append("\r\n");
+			}
+
+			var builtString = sb.ToString();
+
+			return builtString.Substring(0, builtString.Length - 2);
+		}
+
+		private string SortLinesDescendent(Dictionary<string, string> mappingDictionary, List<string> linesCollection)
+		{
+			StringBuilder sb = new StringBuilder();
+			var sortedLinesArray = mappingDictionary.ToImmutableSortedDictionary().Keys.ToArray();
+			for (int i = sortedLinesArray.Length - 1; i >= 0; i--)
+			{
+				var stringLine = mappingDictionary[sortedLinesArray[i]];
+				linesCollection.Add(stringLine);
+				sb.Append(stringLine);
+				sb.Append("\r\n");
+			}
+
+			var builtString = sb.ToString();
+
+			return builtString.Substring(0, builtString.Length - 2);
 		}
 	}
 }

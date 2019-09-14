@@ -26,7 +26,9 @@ namespace TextServices.Services
 				sb.Append("\r\n");
 			}
 
-			sortedBodyText = sb.ToString();
+			var builtString = sb.ToString();
+
+			sortedBodyText = builtString.Substring(0, builtString.Length - 2);
 
 			return paragraphs;
 		}

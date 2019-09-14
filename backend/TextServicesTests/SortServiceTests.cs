@@ -2,12 +2,13 @@
 using TextServices.Interfaces;
 using TextServices.Services;
 
-namespace Tests
+namespace TextServices.Tests
 {
 	public class SortServiceTests
 	{
 		private readonly ISortText _sortTextService;
 		private string textBody = string.Empty;
+
 		public SortServiceTests()
 		{
 			_sortTextService = new SortService();

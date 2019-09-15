@@ -34,6 +34,9 @@ namespace TextWebServices
 			})
 			.SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
+			// Register the Swagger services
+			services.AddSwaggerDocument();
+
 			// Add S3 to the ASP.NET Core dependency injection framework.
 			services.AddAWSService<Amazon.S3.IAmazonS3>();
 
@@ -99,8 +102,14 @@ namespace TextWebServices
 
 			if (!env.IsDevelopment())
 				app.UseHttpsRedirection();
+
 			app.UseDefaultFiles();
 			app.UseStaticFiles();
+
+			// Register the Swagger generator and the Swagger UI middleware
+			app.UseOpenApi();
+			app.UseSwaggerUi3();
+
 			app.UseAuthentication();
 			app.UseMvc();
 		}

@@ -1,6 +1,8 @@
-﻿namespace TextServices.Entities
+﻿using System;
+
+namespace TextServices.Entities
 {
-	public class TextStatisticsEntity
+	public class TextStatisticsEntity: IEquatable<TextStatisticsEntity>
 	{
 		public int Id { get; set; }
 
@@ -15,5 +17,17 @@
 		public int Lines { get; set; }
 
 		public int Hyphens { get; set; }
+
+		public bool Equals(TextStatisticsEntity other)
+		{
+			return other != null
+			    && other.Id == Id
+				&& other.CharacterCount == CharacterCount
+				&& other.Hyphens == Hyphens
+				&& other.Lines == Lines
+				&& other.Paragraphs == Paragraphs
+				&& other.SpecialCharacterCount == SpecialCharacterCount
+				&& other.Words == Words;
+		}
 	}
 }

@@ -3,6 +3,16 @@ using System.Collections.Generic;
 
 namespace TextServices.Tests.Sort
 {
+	/// <summary>
+	/// Text cited from:
+	/// @book{Goodfellow-et-al-2016,
+	/// title={Deep Learning},
+	/// author={Ian Goodfellow and Yoshua Bengio and Aaron Courville},
+	/// publisher={MIT Press},
+	/// note={\url{http://www.deeplearningbook.org}},
+	/// year={2016}
+	/// }
+	/// </summary>
 	public static class AscInputDataTestCases
 	{
 		private static readonly Dictionary<string, string> AscKeysDictionary = new Dictionary<string, string>()

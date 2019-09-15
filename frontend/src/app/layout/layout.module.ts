@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AppHeaderComponent } from './header/header.component';
+import { AppFooterComponent } from './footer/footer.component';
 import { AppLayoutComponent } from './layout.component';
 
 
@@ -9,7 +10,8 @@ import { AppLayoutComponent } from './layout.component';
   declarations: [
     // Components
     AppLayoutComponent,
-    AppHeaderComponent
+    AppHeaderComponent,
+    AppFooterComponent
   ],
   imports: [
     // Modules

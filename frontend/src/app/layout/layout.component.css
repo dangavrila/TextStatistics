@@ -1,0 +1,13 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    background-color: ghostwhite;
+    height: 100%;
+}
+
+.main-content {
+    flex-grow: 1;
+    padding: 8px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}

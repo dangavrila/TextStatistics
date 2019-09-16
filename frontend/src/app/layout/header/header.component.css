@@ -3,3 +3,23 @@
     background-color: cornflowerblue;
     width:100%;
 }
+ul {
+    list-style: none;
+}
+
+li {
+    display: inline;
+    padding-left: 12px;
+}
+
+.nav-item {
+    cursor: pointer;
+}
+
+.nav-item:focus {
+    outline: none;
+}
+
+.active {
+    color: crimson;
+}

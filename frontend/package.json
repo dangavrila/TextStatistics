@@ -22,7 +22,7 @@
     "@angular/platform-browser-dynamic": "~8.2.5",
     "@angular/router": "~8.2.5",
     "amazon-cognito-identity-js": "^3.0.15",
-    "aws-sdk": "2.67.0",
+    "aws-sdk": "2.814.0",
     "bootstrap": "^4.3.1",
     "jquery": "^3.4.1",
     "rxjs": "~6.4.0",
